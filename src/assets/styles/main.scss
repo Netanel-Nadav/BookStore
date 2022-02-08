@@ -1,5 +1,4 @@
 // Setup
-
 @import "setup/variables";
 @import "setup/functions";
 @import "setup/mixins";
@@ -7,12 +6,15 @@
 
 
 // Basics
-
 @import "basics/base";
 @import "basics/helpers";
 @import "basics/layout";
 
+// Pages
+@import "pages/home";
 
 // Components
-
-@import "cmps/navigation"
+@import "cmps/navigation";
+@import "cmps/book-preview";
+@import "cmps/wish-preview";
+@import "cmps/book-sort";

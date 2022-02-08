@@ -1,0 +1,55 @@
+.book-preview {
+  max-width: 300px;
+  box-shadow: 0 0 10px rgb(0 0 0 / 20%);
+
+  .book-container {
+    background-color: #fff;
+    padding: 10px 20px;
+
+    .book-header {
+      padding: 10px 0px;
+      border-bottom: 1px solid #555;
+
+      h1 {
+        font-size: rem(20px);
+      }
+    }
+
+    .book-content {
+      p {
+        height: 200px;
+        overflow-x: auto;
+        line-height: 1.5;
+        font-size: rem(14px);
+
+        &::-webkit-scrollbar {
+          width: 5px;
+        }
+
+        /* Track */
+        &::-webkit-scrollbar-track {
+          background: #f1f1f1;
+        }
+
+        /* Handle */
+        &::-webkit-scrollbar-thumb {
+          background: #888;
+          border-radius: 4px;
+        }
+
+        /* Handle on hover */
+        &::-webkit-scrollbar-thumb:hover {
+          background: #555;
+        }
+      }
+
+      h1 {
+        font-size: rem(20px);
+      }
+    }
+
+    .book-info {
+      padding: 10px 0;
+    }
+  }
+}

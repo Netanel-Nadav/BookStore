@@ -11,7 +11,7 @@ export function Navigation() {
                 <span>Logo Here</span>
             </div>
             <ul className='clean-list flex'>
-                {routes.map(route => <li><NavLink key={route.path} to={route.path}>{route.label}</NavLink></li>)}
+                {routes.map(route => <li key={route.path} ><NavLink to={route.path}>{route.label}</NavLink></li>)}
             </ul>
         </nav>
     );

@@ -30,6 +30,11 @@
     }
 }
 
+.grid {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+}
+
 
 .clean-list {
     list-style-type: none;

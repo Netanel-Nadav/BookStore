@@ -1,0 +1,17 @@
+.book-sort {
+  box-shadow: 0 0 10px rgb(0 0 0 / 20%);
+
+  p {
+    flex-grow: 1;
+    text-align: center;
+    border: 1px solid #80808047;
+    background-color: #fff;
+    color: darkcyan;
+    cursor: pointer;
+
+    &.active {
+      background-color: darkcyan;
+      color: #fff;
+    }
+  }
+}
