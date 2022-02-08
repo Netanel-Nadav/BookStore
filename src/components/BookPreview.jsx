@@ -1,6 +1,8 @@
 import { useState } from "react"
 import { bookService } from "../services/book.service"
 
+import { StarRating } from '../components/StarRating'
+
 export function BookPreview({ book, loadBooks }) {
 
   const [isLiked, setIsLiked] = useState(book.isFavorite)
@@ -28,7 +30,7 @@ export function BookPreview({ book, loadBooks }) {
           <p>{book.description}</p>
         </div>
         <div className="book-info">
-          <p>Rating: <span>{book.rating}</span></p>
+          <div>Rating: <StarRating rating={book.rating}/></div>
           <p>Price: <span>$ {book.price}</span></p>
         </div>
       </div>
