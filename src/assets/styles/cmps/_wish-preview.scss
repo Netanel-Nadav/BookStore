@@ -1,0 +1,46 @@
+.wish-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  flex-basis: 30%;
+  .total {
+    color: #008b8b;
+    font-family: robotoBold;
+  }
+}
+
+.wish-preview {
+  padding: 10px;
+  position: relative;
+  gap: 5px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgb(0 0 0 / 20%);
+  font-size: rem(12px);
+
+  .side-color {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 5px;
+    background-color: brown;
+  }
+
+  span {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 80%;
+    padding-left: 12px;
+  }
+
+  button {
+    border: none;
+    font-weight: bold;
+    background-color: gray;
+    color: #fff;
+    border-radius: 3px;
+    width: 20px;
+    height: 20px;
+  }
+}
