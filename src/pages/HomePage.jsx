@@ -1,52 +1,61 @@
-import React from 'react'
-import { BookList } from '../components/BookList'
+import React, { useEffect, useState } from 'react'
+import { BookPreview } from '../components/BookPreview'
 import { WishList } from '../components/WishList'
+import { bookService } from '../services/book.service'
 
 export function HomePage() {
-  const books = [
-    {
-      "_id": "b101",
-      "title": "Sea of Death",
-      "description": "Written in 1936 when Amado was twenty-four years old, Sea of Death tells the dockside tales of Bahia. Sailors and their wives, steeped in the rich mythology surrounding the goddess Iemanj?, are at the heart of this novel, a lyrical and tragic portrayal of the workers� daily struggle for survival. Sea of Death narrates the story of Guma and L?via, lovers whose triumphs and tribulations mirror the dark imperatives of the world around them.",
-      "rating": "4.2",
-      "author": "Jorge Amado",
-      "price": "16.35"
-    },
-    // {
-    //   "_id": "b102",
-    //   "title": "The Day Lasts More than a Hundred Years",
-    //   "description": "Set in the vast windswept Central Asian steppes and the infinite reaches of galactic space, this powerful novel offers a vivid view of the culture and values of the Soviet Union�s Central Asian peoples.",
-    //   "rating": "4.5",
-    //   "author": "Chingiz Aitmatov",
-    //   "price": "24"
-    // }
-  ]
 
-  const wishlist = [
-    {
-      "_id": "b101",
-      "title": "Sea of Death",
-      "description": "Written in 1936 when Amado was twenty-four years old, Sea of Death tells the dockside tales of Bahia. Sailors and their wives, steeped in the rich mythology surrounding the goddess Iemanj?, are at the heart of this novel, a lyrical and tragic portrayal of the workers� daily struggle for survival. Sea of Death narrates the story of Guma and L?via, lovers whose triumphs and tribulations mirror the dark imperatives of the world around them.",
-      "rating": "4.2",
-      "author": "Jorge Amado",
-      "price": "16.35"
-    },
-    {
-      "_id": "b102",
-      "title": "The Day Lasts More than a Hundred Years",
-      "description": "Set in the vast windswept Central Asian steppes and the infinite reaches of galactic space, this powerful novel offers a vivid view of the culture and values of the Soviet Union�s Central Asian peoples.",
-      "rating": "4.5",
-      "author": "Chingiz Aitmatov",
-      "price": "24"
-    }
-  ]
+  const [books, setBooks] = useState(null)
+  const [currBook, setCurrBook] = useState(null)
+  let [page, setPage] = useState(0)
+  const [favorites, setFavorites] = useState([])
+  const [totalPrice, setTotalPrice] = useState(0)
+  const [sortBy, setSortBy] = useState('title')
 
+  useEffect(() => {
+    loadBooks()
+  }, [])
+
+  useEffect(() => {
+    if (books) setCurrBook(books[page])
+  }, [page])
+
+  useEffect(() => {
+    if(books) loadFavorites()
+  },[books,sortBy])
+
+  const loadFavorites = async () => {
+    const favoritesToRender = await bookService.queryFavorites(sortBy)
+    setFavorites(favoritesToRender.favorites)
+    setTotalPrice(favoritesToRender.totalPrice)
+}
+
+  const loadBooks = async () => {
+    const booksToRender = await bookService.query()
+    setBooks(booksToRender)
+    setCurrBook(booksToRender[page])
+  }
+
+  const changePage = (value) => {
+    if (page === 0 && value === -1) setPage(books.length - 1)
+    else if (page === books.length - 1 && page === 1) setPage(0)
+    else setPage(page + value)
+  }
+
+  const onSetSortBy = (sort) => {
+    setSortBy(sort)
+  }
+
+  if (!books ) return <React.Fragment></React.Fragment>
+  if (!currBook) return <React.Fragment></React.Fragment>
   return (
-      <section className="home flex justify-center">
-          <span className="arrow"><i className="fas fa-chevron-left"></i></span>
-          <BookList books={books} />
-          <span className="arrow"><i className="fas fa-chevron-right"></i></span>
-          <WishList wishlist={wishlist}/>
-      </section>
+    <section className="home flex justify-center">
+      <span className="arrow" onClick={() => changePage(-1)}><i className="fas fa-chevron-left"></i></span>
+      <div className='book-list'>
+        <BookPreview book={currBook} loadBooks={loadBooks} />
+      </div>
+      <span className="arrow" onClick={() => changePage(1)}><i className="fas fa-chevron-right"></i></span>
+      <WishList wishlist={favorites} totalPrice={totalPrice} onSetSortBy={onSetSortBy} loadBooks={loadBooks}/>
+    </section>
   );
 }
